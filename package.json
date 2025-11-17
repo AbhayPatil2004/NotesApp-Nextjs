@@ -2,6 +2,7 @@
   "name": "notesshare",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -9,6 +10,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "mongoose": "^8.19.4",
     "next": "15.5.4",
     "react": "19.1.0",

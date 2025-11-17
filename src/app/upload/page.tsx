@@ -54,6 +54,7 @@ export default function Upload() {
   return (
     <div>
       <button onClick={uploadData}>Upload Code</button>
+      <div>Hello World</div>
     </div>
   );
 }

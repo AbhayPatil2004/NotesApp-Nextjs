@@ -1,13 +1,13 @@
 // app/api/textcode/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
-// import dbConnect from "@/dbConnect/db.js";
-import dbConnect from "../dbConnect/db.js";
-import TextCode from "@/models/text-code-Model";
+import dbConnect from "@/dbConnect/db";
+import TextCode from "../../../models/text-code-Model";
 
 export const runtime = "nodejs"; // IMPORTANT: Mongoose needs Node runtime
 
 export async function POST(request: NextRequest) {
+  
   try {
     // parse body
     const body = await request.json();
