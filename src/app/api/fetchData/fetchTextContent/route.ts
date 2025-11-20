@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
-import TextCode from "../../../models/text-code-Model";
+import TextCode from "../../../../models/text-code-Model";
 
 export async function GET(request: NextRequest) {
   try {

@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
-import TextCode from "../../../models/text-code-Model";
+import TextCode from "../../../../models/text-code-Model";
 
 export const runtime = "nodejs"; // IMPORTANT: Mongoose needs Node runtime
 

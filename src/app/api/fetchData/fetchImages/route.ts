@@ -1,7 +1,7 @@
 // app/api/fetchImages/route.ts
 import { NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
-import Image from "../../../models/imageModel";
+import Image from "../../../../models/imageModel";
 
 export async function GET() {
   try {
