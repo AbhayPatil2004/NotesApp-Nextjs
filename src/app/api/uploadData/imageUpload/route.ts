@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
-import Image from "../../../models/imageModel";
+import Image from "@/models/imageModel";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     const description = formData.get("description") as string | null;
     const uploadedBy = formData.get("uploadedBy") as string | null;
     const category = formData.get("category") as string | null;
-    const tagsRaw = formData.get("tags") as string | null;
+    const commentsRaw = formData.get("comments") as string | null;
 
     // validate required fields (adjust required fields to your needs)
     if (!file || !title || !description || !uploadedBy) {
@@ -44,11 +44,11 @@ export async function POST(request: NextRequest) {
     }
     console.log("Data fetched successfully");
 
-    // parse tags (accept comma separated string or single tag)
-    let tags: string[] = [];
-    if (tagsRaw) {
-      if (typeof tagsRaw === "string") {
-        tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
+    // parse comments (accept comma separated string or single tag)
+    let comments: string[] = [];
+    if (commentsRaw) {
+      if (typeof commentsRaw === "string") {
+        comments = commentsRaw.split(",").map((t) => t.trim()).filter(Boolean);
       }
     }
 
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       category: category ?? "",
       cloudinaryUrl: uploadResult.secure_url ?? uploadResult.url,
       public_id: uploadResult.public_id,
-      tags,
+      comments,
       likes: 0,
       downloads: 0,
       width: uploadResult.width,

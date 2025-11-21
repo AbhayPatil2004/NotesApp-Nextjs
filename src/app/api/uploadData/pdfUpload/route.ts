@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
-import PDF from "../../../models/pdfModel";
+import PDF from "@/models/pdfModel";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const description = formData.get("description") as string | null;
     const uploadedBy = formData.get("uploadedBy") as string | null;
     const category = formData.get("category") as string | null;
-    const tagsRaw = formData.get("tags") as string | null;
+    const commentsRaw = formData.get("comments") as string | null;
 
     // validate required fields
     if (!file || !title || !description || !uploadedBy) {
@@ -58,10 +58,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, message: `File too large. Max ${MAX_BYTES} bytes` }, { status: 400 });
     }
 
-    // parse tags (accept comma separated string or single tag)
-    let tags: string[] = [];
-    if (tagsRaw && typeof tagsRaw === "string") {
-      tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
+    // parse comments (accept comma separated string or single tag)
+    let comments: string[] = [];
+    if (commentsRaw && typeof commentsRaw === "string") {
+      comments = commentsRaw.split(",").map((t) => t.trim()).filter(Boolean);
     }
 
     // decide upload options — PDFs should use resource_type: "raw"
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
       cloudinaryUrl: uploadResult.secure_url ?? uploadResult.url,
       public_id: uploadResult.public_id,
       resource_type: uploadResult.resource_type ?? (isPdf ? "raw" : "image"),
-      tags,
+      comments,
       likes: 0,
       downloads: 0,
       format: uploadResult.format,

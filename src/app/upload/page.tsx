@@ -24,13 +24,13 @@ export default function Upload() {
         "    return 0;\n" +
         "}\n",
 
-      tags: ["cpp", "swap"],
+      tags: [],
       likes: 0,
       downloads: 0,
     };
 
     try {
-      const res = await fetch("/api/textUpload", {
+      const res = await fetch("/api/uploadData/textUpload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

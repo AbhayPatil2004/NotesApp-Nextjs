@@ -2,31 +2,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
-import TextCode from "../../../../models/text-code-Model";
+import TextCode from "@/models/text-code-Model";
 
-export const runtime = "nodejs"; // IMPORTANT: Mongoose needs Node runtime
+export const runtime = "nodejs"; // Mongoose requires node runtime
 
 export async function POST(request: NextRequest) {
-  
   try {
     // parse body
     const body = await request.json();
-    console.log("Request body:", body);
+    console.log("Request body keys:", Object.keys(body)); // safer debug
 
     // ensure DB connect and log readyState
     await dbConnect();
     console.log("Mongoose readyState:", mongoose.connection.readyState); // 1 = connected
-
-    // sanity-check model
-    console.log("TextCode imported:", !!TextCode);
-    console.log("TextCode.create typeof:", typeof TextCode?.create);
 
     // minimal validation
     const required = ["title", "description", "uploadedBy", "content"];
     const missing = required.filter((k) => !body?.[k]);
     if (missing.length) {
       console.warn("Missing required fields:", missing);
-      return NextResponse.json({ status: "fail", message: `Missing: ${missing.join(", ")}` }, { status: 400 });
+      return NextResponse.json(
+        { status: "fail", message: `Missing: ${missing.join(", ")}` },
+        { status: 400 }
+      );
     }
 
     const textData = {
@@ -35,12 +33,11 @@ export async function POST(request: NextRequest) {
       uploadedBy: String(body.uploadedBy),
       category: body.category || "General",
       content: String(body.content),
-      tags: Array.isArray(body.tags) ? body.tags : [],
-      likes: 0,
-      downloads: 0,
+      // Use body.comments (or change to tags in your schema)
+      comments: Array.isArray(body.comments) ? body.comments : [],
+      // likes/downloads can be omitted; schema defaults will apply
     };
 
-    // try-create and capture exact error
     let saved;
     try {
       saved = await TextCode.create(textData);
@@ -48,7 +45,7 @@ export async function POST(request: NextRequest) {
     } catch (createErr) {
       console.error("TextCode.create() error:", createErr);
       return NextResponse.json(
-        { status: "error", message: createErr?.message || "create failed", details: createErr },
+        { status: "error", message: createErr?.message || "create failed" },
         { status: 500 }
       );
     }

@@ -21,7 +21,7 @@ export default function UploadPage() {
     formData.append("category", category);
     formData.append("tags", tags);
 
-    const res = await fetch("/api/pdfUpload", {
+    const res = await fetch("/api/uploadData/pdfUpload", {
       method: "POST",
       body: formData,
     });

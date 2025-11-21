@@ -23,7 +23,7 @@ const pdfSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: {
+    comments: {
         type: [String],
         default: [],
     },

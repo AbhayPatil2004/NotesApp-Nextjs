@@ -55,7 +55,7 @@ export default function UploadPage() {
     try {
       setStatus("Uploading...");
 
-      const res = await fetch("/api/imageUpload", {
+      const res = await fetch("/api/uploadData/imageUpload", {
         method: "POST",
         body: fd,
       });

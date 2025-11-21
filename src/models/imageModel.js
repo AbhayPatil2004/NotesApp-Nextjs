@@ -23,7 +23,7 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: {
+    comments: {
         type: [String],
         default: [],
     },
@@ -35,6 +35,7 @@ const imageSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    
 }, {
     timestamps: true,
 });
