@@ -9,9 +9,9 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-     uploadedBy: {
-        
-        type : String ,
+    uploadedBy: {
+
+        type: String,
         required: true,
     },
     category: {
@@ -23,10 +23,15 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    comments: {
-        type: [String],
-        default: [],
-    },
+    
+    comments: [
+        {
+            comment: { type: String, required: true },
+            user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
+            createdAt: { type: Date, default: Date.now }
+        }
+    ],
+
     likes: {
         type: Number,
         default: 0,
@@ -35,7 +40,7 @@ const imageSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    
+
 }, {
     timestamps: true,
 });

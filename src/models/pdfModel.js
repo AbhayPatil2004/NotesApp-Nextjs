@@ -14,19 +14,23 @@ const pdfSchema = new mongoose.Schema({
         default: "General",
     },
 
-     uploadedBy: {
-        
-        type : String ,
-        required: true,
-    },
-    cloudinaryUrl: {   // Use camelCase for consistency
+    uploadedBy: {
+
         type: String,
         required: true,
     },
-    comments: {
-        type: [String],
-        default: [],
+    cloudinaryUrl: {   
+        type: String,
+        required: true,
     },
+    comments: [
+        {
+            comment: { type: String, required: true },
+            user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
+            createdAt: { type: Date, default: Date.now }
+        }
+    ],
+
     likes: {
         type: Number,
         default: 0,
