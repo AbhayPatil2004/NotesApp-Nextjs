@@ -1,5 +1,9 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import Buttons from "../components/Buttons.jsx";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +21,45 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="w-full p-4">
+
+          {/* Header section */}
+          <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 py-3 mb-4">
+
+            {/* Title */}
+            <h1 className="text-2xl sm:text-4xl font-bold">
+              Notes Share
+            </h1>
+
+            {/* Profile Button */}
+            <button className="bg-black text-white p-1 sm:p-2 rounded-full cursor-pointer">
+              <Image
+                src="/profile-round-1346-svgrepo-com.svg"
+                alt="profile"
+                width={40}
+                height={40}
+                className="bg-white rounded-full p-1 sm:p-2"
+              />
+            </button>
+
+          </div>
+
+          {/* Buttons section */}
+
+          <Buttons></Buttons>
+
+
+
+        </div>
+
         {children}
       </body>
     </html>
