@@ -12,7 +12,7 @@ export default function Profile() {
   const [myImages, setMyImages] = useState([]);
   const [myPdfs, setMyPdfs] = useState([]);
 
-  
+
   const fetchUserDetails = async (uname) => {
     try {
       setLoading(true);
@@ -46,22 +46,23 @@ export default function Profile() {
     }
   };
 
-  
   useEffect(() => {
-    const stored = localStorage.getItem("username");
+    const stored = localStorage.getItem("user");
 
     if (!stored) {
       router.push("/auth/signup");
       return;
     }
 
-    setUsername(stored);
+    const userObj = JSON.parse(stored);   // <--- IMPORTANT
+
+    setUsername(userObj.userName || userObj.username);
+
     // fetchUserDetails(stored);
   }, []);
 
   return (
     <div>
-      <h1>Profile</h1>
 
       {/* {loading && <p>Loading your uploads...</p>}
 

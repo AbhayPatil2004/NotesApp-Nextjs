@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Buttons from "../components/Buttons.jsx";
-import ProfileIcon from "@/components/ProfileIcon";
+import CurrentUser from "@/components/CurrentUser";
 
 
 const geistSans = Geist({
@@ -22,8 +22,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
 
 
-
   return (
+
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -39,9 +39,7 @@ export default function RootLayout({ children }) {
             </h1>
 
             {/* Profile Button */}
-            <ProfileIcon></ProfileIcon>
-            
-
+            <CurrentUser></CurrentUser>
           </div>
 
           {/* Buttons section */}

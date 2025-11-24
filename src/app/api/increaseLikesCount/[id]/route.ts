@@ -8,6 +8,7 @@ import Pdf from "../../../../models/pdfModel";
 
 // helper function (generic for likes)
 async function updateLikes(id: string, model: any) {
+
   try {
     const updated = await model.findByIdAndUpdate(
       id,
@@ -52,6 +53,8 @@ export async function PUT(
     }
 
     if (dataType === "textContent") {
+
+      
       return await updateLikes(id, textContent);
     }
 
