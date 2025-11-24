@@ -51,19 +51,19 @@ export default function Profile() {
     const stored = localStorage.getItem("username");
 
     if (!stored) {
-      router.push("/signUp");
+      router.push("/auth/signup");
       return;
     }
 
     setUsername(stored);
-    fetchUserDetails(stored);
+    // fetchUserDetails(stored);
   }, []);
 
   return (
     <div>
       <h1>Profile</h1>
 
-      {loading && <p>Loading your uploads...</p>}
+      {/* {loading && <p>Loading your uploads...</p>}
 
       {!loading && (
         <>
@@ -76,7 +76,7 @@ export default function Profile() {
           <h3>Your PDFs</h3>
           <pre>{JSON.stringify(myPdfs, null, 2)}</pre>
         </>
-      )}
+      )} */}
     </div>
   );
 }
