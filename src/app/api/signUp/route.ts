@@ -46,8 +46,17 @@ export async function POST(request: NextRequest) {
     const newUser = await User.create({ userName, email, password: hashedPassword });
 
     // respond without password
-    const safeUser = { _id: newUser._id, userName: newUser.userName, email: newUser.email, createdAt: newUser.createdAt };
-    return NextResponse.json({ ok: true, message: "User created", body: safeUser }, { status: 201 });
+    const safeUser = {
+      _id: String(newUser._id),
+      userName: newUser.userName, // or username — be consistent
+      email: newUser.email,
+      createdAt: newUser.createdAt
+    };
+
+    return NextResponse.json(
+      { ok: true, message: "User created", safeUser }, // key is safeUser
+      { status: 201 }
+    );
   } catch (err: any) {
     // helpful debug logging
     console.error("[signup] error:", err);

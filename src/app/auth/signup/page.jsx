@@ -2,38 +2,56 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter  } from "next/navigation";
 
 export default function Signup() {
-  const [Name, setName] = useState("");
+
+  const router = useRouter()
+
+  const [userName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  
   async function handleSignup(e) {
-
     try {
       e.preventDefault();
 
-      const res = await fetch("/api/signUp", {
+      const res = await fetch("/api/signUp", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ Name, email, password }),
+        body: JSON.stringify({ userName, email, password }),
       });
 
+      console.log("fetch status:", res.status, res.statusText);
+
       const data = await res.json();
+      console.log("server response:", data);
+
+      if (!res.ok) {
+        
+        setMessage(data?.message || "Signup failed");
+        return;
+      }
 
       if (data.ok && data.safeUser) {
-        localStorage.setItem("user", JSON.stringify(data.safeUser));
-        localStorage.setItem("name", data.safeUser.name);
-        router.push("/profile")
+        // use the correct field (userName) — not `name`
+        const userObj = data.safeUser;
+        localStorage.setItem("user", JSON.stringify(userObj));
+        // store a human display name (use userName or username whichever you settled on)
+        localStorage.setItem("name", userObj.userName || userObj.username || "");
+        console.log("saved to localStorage:", localStorage.getItem("user"));
+        router.push("/profile");
+      } else {
+        setMessage(data?.message || "Unexpected server response");
       }
-      setMessage(data.message);
-    }
-    catch (error) {
-      alert("Error in Signup try after Some time")
-      console.log("Error in Signup try after Some time")
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Error in Signup — try again later");
     }
   }
+
 
   return (
     <div className="min-h-screen flex items-start justify-center pt-20 bg-black text-white px-4">
@@ -47,7 +65,7 @@ export default function Signup() {
         <input
           type="text"
           placeholder="name"
-          value={Name}
+          value={userName}
           onChange={(e) => setName(e.target.value)}
           required
           className="w-full mb-4 px-3 py-3 bg-black border border-white rounded-md text-white focus:outline-none text-sm sm:text-base"
