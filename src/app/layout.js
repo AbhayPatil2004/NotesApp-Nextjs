@@ -1,8 +1,7 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
 import Buttons from "../components/Buttons.jsx";
+import ProfileIcon from "@/components/ProfileIcon";
 
 
 const geistSans = Geist({
@@ -40,23 +39,14 @@ export default function RootLayout({ children }) {
             </h1>
 
             {/* Profile Button */}
-            <button className="bg-black text-white p-1 sm:p-2 rounded-full cursor-pointer">
-              <Image
-                src="/profile-round-1346-svgrepo-com.svg"
-                alt="profile"
-                width={40}
-                height={40}
-                className="bg-white rounded-full p-1 sm:p-2"
-              />
-            </button>
+            <ProfileIcon></ProfileIcon>
+            
 
           </div>
 
           {/* Buttons section */}
 
           <Buttons></Buttons>
-
-
 
         </div>
 

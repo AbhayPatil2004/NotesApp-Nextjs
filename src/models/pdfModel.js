@@ -18,6 +18,7 @@ const pdfSchema = new mongoose.Schema({
 
         type: String,
         required: true,
+        
     },
     cloudinaryUrl: {   
         type: String,
