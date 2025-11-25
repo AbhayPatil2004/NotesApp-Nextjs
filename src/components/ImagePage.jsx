@@ -66,18 +66,18 @@ export default function ImagesPage() {
     // Download handler: call server to increment downloads then open the url
     async function handleDownload(id, url) {
         try {
-            const res = await fetch(`/api/increaseDownloadsCount/${id}`, {
-                method: "PUT", // matches server route
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ Type: "Images" })
-            });
+            // const res = await fetch(`/api/increaseDownloadsCount/${id}`, {
+            //     method: "PUT", // matches server route
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({ Type: "Images" })
+            // });
 
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err?.error || err?.message || `HTTP ${res.status}`);
-            }
+            // if (!res.ok) {
+            //     const err = await res.json().catch(() => ({}));
+            //     throw new Error(err?.error || err?.message || `HTTP ${res.status}`);
+            // }
 
-            const body = await res.json(); // expects { ok: true, image: {...} }
+            // const body = await res.json(); // expects { ok: true, image: {...} }
             if (body?.ok && body?.image) {
                 setImages(prev => prev.map(img => (img._id === id ? body.image : img)));
             }
@@ -120,7 +120,7 @@ export default function ImagesPage() {
     return (
         <div className="p-6">
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-semibold">Gallery</h1>
+                <h1 className="text-2xl font-semibold">Images</h1>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

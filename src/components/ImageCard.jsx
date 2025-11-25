@@ -47,7 +47,7 @@ export default function ImageCard({ image, onLike }) {
                 <div className="flex items-center justify-between mt-4">
                     <div className="text-sm text-gray-700 space-y-1">
                         <div>👍 Likes: <span className="font-semibold">{likes}</span></div>
-                        <div>⬇ Downloads: <span className="font-semibold">{downloads}</span></div>
+                        {/* <div>⬇ Downloads: <span className="font-semibold">{downloads}</span></div> */}
                     </div>
 
                     <div className="text-right text-xs text-gray-500">
@@ -61,7 +61,7 @@ export default function ImageCard({ image, onLike }) {
             <div className="mt-4 flex gap-3">
                 <button
                     onClick={() => onLike(_id)}
-                    className="flex-1 px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+                    className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
                 >
                     👍 Like
                 </button>
@@ -70,7 +70,7 @@ export default function ImageCard({ image, onLike }) {
                     href={cloudinaryUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-medium hover:bg-gray-300 transition"
+                    className="cursor-pointer px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-medium hover:bg-gray-300 transition"
                 >
                     ⬇ Download
                 </a>
