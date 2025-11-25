@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -14,9 +15,15 @@ export default function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="px-4 py-2 bg-white text-black rounded-md text-12px cursor-pointer md:text-sm"
+      className="cursor-pointer"
     >
-      Logout
+      <Image
+        src="/login-svgrepo-com.svg"
+        alt="profile"
+        width={40}
+        height={40}
+        className="bg-white rounded-full p-1 sm:p-2"
+      />
     </button>
   );
 }
