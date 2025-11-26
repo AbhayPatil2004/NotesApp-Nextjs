@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Buttons from "../components/Buttons.jsx";
 import CurrentUser from "@/components/CurrentUser";
+import Logo from "@/components/Logo";
 
 
 const geistSans = Geist({
@@ -34,9 +35,7 @@ export default function RootLayout({ children }) {
           <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 py-3 mb-4">
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-bold">
-              Notes Share
-            </h1>
+            <Logo></Logo>
 
             {/* Profile Button */}
             <CurrentUser></CurrentUser>
