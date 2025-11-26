@@ -1,67 +1,34 @@
-// components/buttons.jsx
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Buttons() {
   const router = useRouter();
+  const pathname = usePathname(); // detect the active route
 
-  // store active button name
-  const [active, setActive] = useState("");
-
-  const handleClick = (path) => {
-    setActive(path); // highlight the clicked button
-    router.push(path);
-  };
-
-  const baseClass =
-    "px-4 py-2 text-lg rounded-md cursor-pointer shadow w-full text-center min-w-[120px] transition";
+  const buttonClass = (path) =>
+    `cursor-pointer px-2 py-2 sm:px-4 sm:py-3 rounded-md font-medium transition-all duration-200 hover:scale-105
+     ${pathname === path ? "bg-blue-600 text-white" : "bg-white text-black hover:bg-gray-200"}`;
 
   return (
     <div className="w-full flex justify-center mt-4">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 w-full max-w-xl">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl">
 
-        <button
-          onClick={() => handleClick("/codes")}
-          className={`${baseClass} ${
-            active === "/codes"
-              ? "bg-blue-600 text-white"
-              : "bg-white text-black"
-          }`}
-        >
+        <button onClick={() => router.push("/codes")} className={buttonClass("/codes")}>
           Codes
         </button>
 
-        <button
-          onClick={() => handleClick("/images")}
-          className={`${baseClass} ${
-            active === "/images"
-              ? "bg-blue-600 text-white"
-              : "bg-white text-black"
-          }`}
-        >
+        <button onClick={() => router.push("/images")} className={buttonClass("/images")}>
           Images
         </button>
 
-        <button
-          onClick={() => handleClick("/pdf")}
-          className={`${baseClass} ${
-            active === "/pdf"
-              ? "bg-blue-600 text-white"
-              : "bg-white text-black"
-          }`}
-        >
+        <button onClick={() => router.push("/pdf")} className={buttonClass("/pdf")}>
           Pdf
         </button>
 
         <button
-          onClick={() => handleClick("/upload")}
-          className={`${baseClass} whitespace-nowrap min-w-[140px] ${
-            active === "/upload"
-              ? "bg-blue-600 text-white"
-              : "bg-white text-black"
-          }`}
+          onClick={() => router.push("/upload")}
+          className={`whitespace-nowrap min-w-[120px] ${buttonClass("/upload")}`}
         >
           Upload Notes
         </button>
