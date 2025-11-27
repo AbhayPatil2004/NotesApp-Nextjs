@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       category: category ?? "",
       cloudinaryUrl: uploadResult.secure_url ?? uploadResult.url,
       public_id: uploadResult.public_id,
-      comments,
+      comments : [],
       likes: 0,
       downloads: 0,
       width: uploadResult.width,

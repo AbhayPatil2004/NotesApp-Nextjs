@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
       cloudinaryUrl: uploadResult.secure_url ?? uploadResult.url,
       public_id: uploadResult.public_id,
       resource_type: uploadResult.resource_type ?? (isPdf ? "raw" : "image"),
-      comments,
+      comments : [],
       likes: 0,
       downloads: 0,
       format: uploadResult.format,

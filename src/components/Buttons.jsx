@@ -27,7 +27,15 @@ export default function Buttons() {
         </button>
 
         <button
-          onClick={() => router.push("/upload")}
+          onClick={() => {
+
+            const user = localStorage.getItem("user");
+            if( !user ){
+              alert("Please login first")
+              return 
+            }
+            router.push("/upload")
+          }}
           className={`whitespace-nowrap min-w-[120px] ${buttonClass("/upload")}`}
         >
           Upload Notes

@@ -98,9 +98,9 @@ export default function PdfCard({
                         <div>
                             👍 Likes: <span className="font-semibold">{likes}</span>
                         </div>
-                        <div>
+                        {/* <div>
                             ⬇ Downloads: <span className="font-semibold">{downloads}</span>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="text-right text-xs text-gray-500">
