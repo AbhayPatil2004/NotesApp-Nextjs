@@ -42,7 +42,7 @@ export default function Signup() {
         // store a human display name (use userName or username whichever you settled on)
         localStorage.setItem("name", userObj.userName || userObj.username || "");
         console.log("saved to localStorage:", localStorage.getItem("user"));
-        router.push("/profile");
+        router.push("/codes");
       } else {
         setMessage(data?.message || "Unexpected server response");
       }

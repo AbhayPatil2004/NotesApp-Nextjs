@@ -29,7 +29,7 @@ export default function Login() {
             if (data.ok && data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("username", data.user.username);
-                router.push("/profile")
+                router.push("/codes")
             }
             setMessage(data.message);
         }

@@ -33,7 +33,9 @@ function CurrentUser() {
                 userName !== "" ? (
                     <div className="w-full flex justify-between items-center rounded-md shadow gap-5 md:text-sm">
                         <h1 className="text-base sm:text-lg md:text-xl font-semibold text-white">
-                            {userName}
+                            <button className="cursor-pointer">
+                                {userName}
+                            </button>
                         </h1>
                         <LogoutButton />
                     </div>
