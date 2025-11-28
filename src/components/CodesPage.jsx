@@ -34,7 +34,8 @@ export default function CodesPage() {
                     payload?.items ??
                     [];
 
-                if (mounted) setCodes(Array.isArray(dataArray) ? dataArray : []);
+                if (mounted) setCodes(Array.isArray(dataArray) ? [...dataArray].reverse() : []);
+
             } catch (err) {
                 if (mounted) setError(err.message || "Failed to load codes");
             } finally {

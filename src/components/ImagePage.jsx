@@ -28,7 +28,11 @@ export default function ImagesPage() {
                 const payload = await res.json();
                 const dataArray = payload?.images ?? payload?.fetchedData ?? payload?.data ?? [];
 
-                if (mounted) setImages(Array.isArray(dataArray) ? dataArray : []);
+                if (mounted) {
+                    const arr = Array.isArray(dataArray) ? dataArray : [];
+                    setImages([...arr].reverse()); // reverse the sequence
+                }
+
             } catch (err) {
                 if (mounted) setError(err.message || "Failed to load images");
             } finally {

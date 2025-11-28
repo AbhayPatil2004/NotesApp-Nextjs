@@ -34,7 +34,8 @@ export default function PdfPage() {
               : Array.isArray(payload.data) ? payload.data
                 : Array.isArray(payload.fetchedData) ? payload.fetchedData
                   : [];
-        setPdfs(list);
+        setPdfs(Array.isArray(list) ? [...list].reverse() : []);
+
       } catch (err) {
         if (err.name === "AbortError") return;
         setError(err.message || "Failed to load PDFs");
