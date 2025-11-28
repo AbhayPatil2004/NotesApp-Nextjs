@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
 import TextCode from "@/models/text-code-Model";
 
-export const runtime = "nodejs"; // Mongoose requires node runtime
+export const runtime = "nodejs"; 
 
 export async function POST(request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request) {
     console.log("Request body keys:", Object.keys(body));
 
     await dbConnect();
-    console.log("Mongoose readyState:", mongoose.connection.readyState); // 1 = connected
+    console.log("Mongoose readyState:", mongoose.connection.readyState);
 
     const required = ["title", "description", "uploadedBy", "content"];
     const missing = required.filter((k) => !body?.[k]);

@@ -39,7 +39,7 @@ export default function ImageUpload() {
     formData.append("description", e.target.description.value);
     formData.append("uploadedBy", uploadedBy);
     formData.append("category", e.target.category.value);
-    formData.append("comments", e.target.comments.value);
+    // formData.append("comments", e.target.comments.value);
 
     try {
       const res = await fetch("/api/uploadData/imageUpload", {

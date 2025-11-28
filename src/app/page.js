@@ -167,9 +167,7 @@ export default function LearningHero() {
 
       <FeaturesSection></FeaturesSection>
 
-      <div className="mt-16 text-center text-gray-500 pb-10">
-        &copy; {new Date().getFullYear()} NotesShare. All rights reserved.
-      </div>
+      
 
     </div>
   );

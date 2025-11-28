@@ -3,6 +3,7 @@ import "./globals.css";
 import Buttons from "../components/Buttons.jsx";
 import CurrentUser from "@/components/CurrentUser";
 import Logo from "@/components/Logo";
+import Image from "next/image";
 
 
 const geistSans = Geist({
@@ -48,6 +49,33 @@ export default function RootLayout({ children }) {
         </div>
 
         {children}
+
+        <footer className="mt-16 pb-10 text-center text-gray-400 bg-black">
+          {/* <p className="text-base">Developer : Abhay Patil</p> */}
+
+          <div className="flex justify-center items-center gap-2 mt-2">
+            <Image
+              alt="github"
+              src="/github-svgrepo-com.svg"
+              height={22}
+              width={22}
+              className="invert opacity-90"
+            />
+            <a
+              href="https://github.com/AbhayPatil2004"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 hover:underline"
+            >
+              github.com/AbhayPatil2004
+            </a>
+          </div>
+
+          <p className="mt-3 text-sm text-gray-500">
+            &copy; {new Date().getFullYear()} NotesShare. All rights reserved.
+          </p>
+        </footer>
+
       </body>
     </html>
   );
