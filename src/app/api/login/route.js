@@ -1,14 +1,14 @@
-import { NextResponse, NextRequest } from "next/server";
+// app/api/auth/login/route.js
+import { NextResponse } from "next/server";
 import User from "@/models/User.Model";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/dbConnect/db";
-import mongoose from "mongoose";
 
-async function checkPassword(plainPassword: string, hashedPassword: string) {
+async function checkPassword(plainPassword, hashedPassword) {
   return await bcrypt.compare(plainPassword, hashedPassword);
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     await dbConnect();
     console.log("Database Connected");
@@ -27,7 +27,6 @@ export async function POST(request: NextRequest) {
     const existingUser = await User.findOne({ email }).lean();
 
     if (!existingUser) {
-      // don't reveal whether email exists; generic message is better
       return NextResponse.json(
         { ok: false, message: "Invalid email or password" },
         { status: 401 }
@@ -36,7 +35,6 @@ export async function POST(request: NextRequest) {
 
     const dbPassword = existingUser.password;
     if (!dbPassword) {
-      // unexpected, but handle safely
       return NextResponse.json(
         { ok: false, message: "Invalid email or password" },
         { status: 401 }
@@ -51,7 +49,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // prepare a safe user object (do not include password)
     const safeUser = {
       _id: String(existingUser._id),
       username: existingUser.username || existingUser.userName || null,
@@ -63,7 +60,7 @@ export async function POST(request: NextRequest) {
       { ok: true, message: "Login successful", user: safeUser },
       { status: 200 }
     );
-  } catch (err: any) {
+  } catch (err) {
     console.error("[login] error:", err);
     return NextResponse.json(
       { ok: false, message: "Something went wrong", error: err?.message || String(err) },

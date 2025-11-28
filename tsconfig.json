@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/api/increaseLikesCount/[id]/route.js"  ],
+, "src/app/api/increaseLikesCount/[id]/route.js", "src/app/api/uploadData/textUpload/route.js", "src/app/api/uploadData/pdfUpload/route.js", "src/app/api/uploadData/imageUpload/route.js", "src/app/api/signUp/route.js", "src/app/api/login/route.js", "src/app/api/fetchData/fetchTextContent/route.js", "src/app/api/fetchData/fetchPdfs/route.js", "src/app/api/fetchData/fetchImages/route.js"  ],
 
   "exclude": ["node_modules"]
 }

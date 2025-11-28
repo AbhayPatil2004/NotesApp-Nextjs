@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+// app/api/fetchData/fetchTextCodes/route.js
+import { NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
 import TextCode from "@/models/text-code-Model";
 
-
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     await dbConnect();
     console.log("Database connected");
 
     const data = await TextCode.find(); // returns an array
 
-    // If you want to return 404 when no documents found:
+    // Return empty array if no documents found
     if (!data || data.length === 0) {
       return NextResponse.json(
         { ok: true, message: "No documents found", fetchedData: [] },

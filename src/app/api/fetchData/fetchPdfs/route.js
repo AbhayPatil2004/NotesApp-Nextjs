@@ -1,7 +1,7 @@
-// app/api/fetchData/fetchPdfs/route.ts
+// app/api/fetchData/fetchPdfs/route.js
 import { NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
-import Pdf from "@/models/pdfModel"; // use alias import if configured; adjust path if not
+import Pdf from "@/models/pdfModel"; // adjust path if needed
 
 export async function GET() {
   try {
@@ -9,13 +9,12 @@ export async function GET() {
     console.log("Database connected (fetchPdfs)");
 
     // fetch all PDFs as plain objects
-    const data = await Pdf.find({}).lean();
+    const data = await Pdf.find({}).lean(); // .lean() returns plain objects
 
     const count = Array.isArray(data) ? data.length : 0;
     console.log(`Fetched ${count} pdf(s)`);
 
-    // Always return the same shape your client expects:
-    // payload.Pdfs  (client code checks payload.Pdfs || payload.pdfs || payload.data)
+    // Always return the same shape your client expects
     return NextResponse.json(
       {
         ok: true,
@@ -24,7 +23,7 @@ export async function GET() {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("GET /api/fetchData/fetchPdfs error:", error);
     return NextResponse.json(
       { ok: false, message: `Error fetching PDFs: ${error?.message || error}` },

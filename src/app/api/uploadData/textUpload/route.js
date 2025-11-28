@@ -1,22 +1,19 @@
-// app/api/textcode/route.ts
-import { NextRequest, NextResponse } from "next/server";
+// app/api/textcode/route.js
+import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
 import TextCode from "@/models/text-code-Model";
 
 export const runtime = "nodejs"; // Mongoose requires node runtime
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
-    // parse body
     const body = await request.json();
-    console.log("Request body keys:", Object.keys(body)); // safer debug
+    console.log("Request body keys:", Object.keys(body));
 
-    // ensure DB connect and log readyState
     await dbConnect();
     console.log("Mongoose readyState:", mongoose.connection.readyState); // 1 = connected
 
-    // minimal validation
     const required = ["title", "description", "uploadedBy", "content"];
     const missing = required.filter((k) => !body?.[k]);
     if (missing.length) {
@@ -33,9 +30,7 @@ export async function POST(request: NextRequest) {
       uploadedBy: String(body.uploadedBy),
       category: body.category || "General",
       content: String(body.content),
-      // Use body.comments (or change to tags in your schema)
       comments: Array.isArray(body.comments) ? body.comments : [],
-      // likes/downloads can be omitted; schema defaults will apply
     };
 
     let saved;
@@ -51,8 +46,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ status: "success", data: saved }, { status: 201 });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Route top-level error:", err);
-    return NextResponse.json({ status: "error", message: err?.message || "unknown" }, { status: 500 });
+    return NextResponse.json(
+      { status: "error", message: err?.message || "unknown" },
+      { status: 500 }
+    );
   }
 }
