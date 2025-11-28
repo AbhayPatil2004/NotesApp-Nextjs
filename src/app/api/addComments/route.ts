@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
 
-import textContent from "../../../../models/text-code-Model";
-import Image from "../../../../models/imageModel";
-import Pdf from "../../../../models/pdfModel";
+import TextContent from "@/models/text-code-Model";
+import ImageModel from "@/models/imageModel";
+import PdfModel from "@/models/pdfModel";
+
 
 type ModelType = any; // tighten this to mongoose.Model if you like
 

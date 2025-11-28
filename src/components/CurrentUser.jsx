@@ -3,8 +3,9 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import LogoutButton from './Logout';
-import ProfileIcon from './ProfileIcon';
+import LogoutButton from "@/components/Logout";
+import ProfileIcon from "@/components/ProfileIcon";
+
 import { useRouter } from 'next/navigation';
 
 function CurrentUser() {

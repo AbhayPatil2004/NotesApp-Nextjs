@@ -2,9 +2,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/dbConnect/db";
 
-import textContent from "../../../../models/text-code-Model";
-import Image from "../../../../models/imageModel";
-import Pdf from "../../../../models/pdfModel";
+import TextContent from "@/models/text-code-Model";
+import Image from "@/models/imageModel";
+import Pdf from "@/models/pdfModel";
 
 // helper function (generic for likes)
 async function updateLikes(id: string, model: any) {
