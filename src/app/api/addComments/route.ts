@@ -1,5 +1,5 @@
 // app/api/images/[id]/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/dbConnect/db";
 
@@ -7,10 +7,14 @@ import TextContent from "@/models/text-code-Model";
 import ImageModel from "@/models/imageModel";
 import PdfModel from "@/models/pdfModel";
 
+type ModelType = mongoose.Model<any, {}, {}>; // adjust generics if you have stronger types
 
-type ModelType = any; // tighten this to mongoose.Model if you like
-
-async function addComment(id: string, model: ModelType, commentText: string, userId?: string) {
+async function addComment(
+  id: string,
+  model: ModelType,
+  commentText: string,
+  userId?: string
+) {
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ ok: false, error: "Invalid id" }, { status: 400 });
@@ -18,13 +22,13 @@ async function addComment(id: string, model: ModelType, commentText: string, use
 
     const commentPayload: any = {
       comment: commentText,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     if (userId && mongoose.Types.ObjectId.isValid(userId)) {
       commentPayload.user = userId;
     }
-    
+
     const updated = await model.findByIdAndUpdate(
       id,
       { $push: { comments: commentPayload } },
@@ -42,17 +46,17 @@ async function addComment(id: string, model: ModelType, commentText: string, use
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     await dbConnect();
 
     const { id } = params;
     const body = await request.json();
 
-    // accept either 'type' or 'Type' from client, but prefer lowercase 'type'
+    // accept either 'type' or 'Type' from client, prefer lowercase
     const dataType: string | undefined = (body.type ?? body.Type);
     const comment: string | undefined = body.comment;
-    const userId: string | undefined = body.userId; // optional - don't trust this if not authenticated
+    const userId: string | undefined = body.userId; // optional
 
     if (!dataType || !comment) {
       return NextResponse.json({ ok: false, error: "type or comment missing in request body" }, { status: 400 });
@@ -63,17 +67,18 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 
     const trimmedComment = comment.trim();
+    const typeNormalized = String(dataType).toLowerCase();
 
-    if (dataType === "textContent") {
-      return await addComment(id, textContent, trimmedComment, userId);
+    if (typeNormalized === "textcontent" || typeNormalized === "text") {
+      return await addComment(id, TextContent, trimmedComment, userId);
     }
 
-    if (dataType === "Images" || dataType === "images") {
-      return await addComment(id, Image, trimmedComment, userId);
+    if (typeNormalized === "images" || typeNormalized === "image") {
+      return await addComment(id, ImageModel, trimmedComment, userId);
     }
 
-    if (dataType === "Pdfs" || dataType === "pdfs") {
-      return await addComment(id, Pdf, trimmedComment, userId);
+    if (typeNormalized === "pdfs" || typeNormalized === "pdf") {
+      return await addComment(id, PdfModel, trimmedComment, userId);
     }
 
     return NextResponse.json({ ok: false, error: "Invalid type provided" }, { status: 400 });
