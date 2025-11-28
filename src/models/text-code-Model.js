@@ -12,7 +12,6 @@ const textCodeSchema = new mongoose.Schema({
     uploadedBy: {
         type: String,
         required: true,
-        
     },
     category: {
         type: String,
