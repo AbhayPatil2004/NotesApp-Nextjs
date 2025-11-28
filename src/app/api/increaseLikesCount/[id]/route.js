@@ -90,10 +90,8 @@ import TextContent from "@/models/text-code-Model";
 import ImageModel from "@/models/imageModel";
 import PdfModel from "@/models/pdfModel";
 
-type ModelType = any; // tighten to mongoose.Model if you want
-
 // helper function (generic for likes)
-async function updateLikes(id: string, model: ModelType) {
+async function updateLikes(id, model) {
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ ok: false, error: "Invalid id" }, { status: 400 });
@@ -110,20 +108,19 @@ async function updateLikes(id: string, model: ModelType) {
     }
 
     return NextResponse.json({ ok: true, message: "Like count updated", data: updated });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error incrementing Like count:", error?.message ?? error);
     return NextResponse.json({ ok: false, error: "Internal server error" }, { status: 500 });
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request, { params }) {
   try {
     await dbConnect();
 
     const { id } = params;
     const body = await request.json().catch(() => ({}));
-    // accept either 'type' or 'Type'
-    const dataType: string | undefined = (body.type ?? body.Type);
+    const dataType = body.type ?? body.Type;
 
     if (!dataType) {
       return NextResponse.json({ ok: false, error: "DataType not provided" }, { status: 400 });
@@ -144,7 +141,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 
     return NextResponse.json({ ok: false, error: "Invalid DataType provided" }, { status: 400 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("PUT route error:", error?.message ?? error);
     return NextResponse.json({ ok: false, error: "Internal server error" }, { status: 500 });
   }
