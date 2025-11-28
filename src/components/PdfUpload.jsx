@@ -70,7 +70,7 @@ export default function PDFUpload() {
   };
 
   return (
-    <div className=" bg-black text-white flex  justify-center p-6">
+    <div className="bg-black text-white flex justify-center p-4 px-0 sm:px-6">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-neutral-900 p-6 rounded-xl shadow-lg space-y-4 border border-neutral-700"
@@ -121,7 +121,9 @@ export default function PDFUpload() {
           className="w-full p-2 bg-neutral-800 rounded border border-neutral-700 text-white"
         />
 
-        <div className="text-sm text-gray-400">Uploaded by: {uploadedBy || "not found"}</div>
+        <div className="text-sm text-gray-400">
+          Uploaded by: {uploadedBy || "not found"}
+        </div>
 
         <button
           type="submit"
@@ -132,5 +134,6 @@ export default function PDFUpload() {
         </button>
       </form>
     </div>
+
   );
 }

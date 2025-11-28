@@ -91,7 +91,7 @@ export default function TextCodeUploadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 px-0 sm:px-6">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-2xl bg-neutral-900 p-6 rounded-xl shadow-lg space-y-4 border border-neutral-700"
@@ -156,5 +156,6 @@ export default function TextCodeUploadPage() {
         </button>
       </form>
     </div>
+
   );
 }

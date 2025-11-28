@@ -10,7 +10,7 @@ export default function Page() {
   const [selectedType, setSelectedType] = useState("code");
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div className=" bg-black text-white p-6">
       <h1 className="text-3xl font-bold text-center mb-6">Upload Center</h1>
 
       {/* Dropdown */}
