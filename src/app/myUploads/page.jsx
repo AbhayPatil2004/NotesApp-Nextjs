@@ -1,10 +1,10 @@
 import React from 'react'
-import CodesPage from '@/components/MyUploadCodes'
+import MyUploadCard from '@/components/MyUploadCard'
 
 function page() {
   return (
     <div>
-        <CodesPage></CodesPage>
+        <MyUploadCard></MyUploadCard>
     </div>
   )
 }
