@@ -5,7 +5,7 @@ import dbConnect from "@/dbConnect/db";
 
 export async function GET(request, { params }) {
   try {
-    const usernameParam = params?.userName;
+    const usernameParam = params?.userName || params?.id;
     if (!usernameParam) {
       return NextResponse.json({ ok: false, message: "Missing route parameter: userName" }, { status: 400 });
     }

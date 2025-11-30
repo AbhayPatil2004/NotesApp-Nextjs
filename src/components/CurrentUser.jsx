@@ -34,7 +34,8 @@ function CurrentUser() {
                 userName !== "" ? (
                     <div className="w-full flex justify-between items-center rounded-md shadow gap-5 md:text-sm">
                         <h1 className="text-base sm:text-lg md:text-xl font-semibold text-white">
-                            <button className="cursor-pointer">
+                            <button className="cursor-pointer"
+                            onClick={ () => { router.push("/profile")}}>
                                 {userName}
                             </button>
                         </h1>

@@ -28,31 +28,27 @@ export default function RootLayout({ children }) {
 
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-black`}
       >
-        <div className="w-full p-4">
+        {/* Everything above footer */}
+        <div className="flex-grow">
+          <div className="w-full p-4">
+            {/* Header section */}
+            <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 py-3 mb-4">
+              <Logo />
+              <CurrentUser />
+            </div>
 
-          {/* Header section */}
-          <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 py-3 mb-4">
-
-            {/* Title */}
-            <Logo></Logo>
-
-            {/* Profile Button */}
-            <CurrentUser></CurrentUser>
+            {/* Buttons section */}
+            <Buttons />
           </div>
 
-          {/* Buttons section */}
-
-          <Buttons></Buttons>
-
+          {/* Page content */}
+          {children}
         </div>
 
-        {children}
-
+        {/* Sticky Footer */}
         <footer className="mt-16 pb-10 text-center text-gray-400 bg-black">
-          {/* <p className="text-base">Developer : Abhay Patil</p> */}
-
           <div className="flex justify-center items-center gap-2 mt-2">
             <Image
               alt="github"
@@ -75,8 +71,8 @@ export default function RootLayout({ children }) {
             &copy; {new Date().getFullYear()} NotesShare. All rights reserved.
           </p>
         </footer>
-
       </body>
     </html>
+
   );
 }
