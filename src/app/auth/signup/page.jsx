@@ -42,6 +42,7 @@ export default function Signup() {
         // store a human display name (use userName or username whichever you settled on)
         localStorage.setItem("name", userObj.userName || userObj.username || "");
         console.log("saved to localStorage:", localStorage.getItem("user"));
+        window.dispatchEvent(new Event("user-change"));
         router.push("/codes");
       } else {
         setMessage(data?.message || "Unexpected server response");
@@ -54,7 +55,7 @@ export default function Signup() {
 
 
   return (
-    <div className="min-h-screen flex items-start justify-center pt-20 bg-black text-white px-4">
+    <div className=" flex items-start justify-center pt-20 bg-black text-white px-4">
       {/* Added px-4 for mobile padding */}
       <form
         onSubmit={handleSignup}

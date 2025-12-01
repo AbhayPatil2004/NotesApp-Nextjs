@@ -9,6 +9,7 @@ export default function LogoutButton() {
     localStorage.removeItem("user");
     localStorage.removeItem("name");
     localStorage.removeItem("userName")
+    window.dispatchEvent(new Event("user-change"));
     router.push("/");
   };
 

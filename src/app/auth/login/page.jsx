@@ -28,7 +28,8 @@ export default function Login() {
             
             if (data.ok && data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("username", data.user.username);
+                // localStorage.setItem("username", data.user.username);
+                window.dispatchEvent(new Event("user-change"));
                 router.push("/codes")
             }
             setMessage(data.message);
@@ -40,7 +41,7 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen flex items-start justify-center pt-20 bg-black text-white px-4">
+        <div className=" flex items-start justify-center pt-20 bg-black text-white px-4">
             <form
                 onSubmit={handleLogin}
                 className="w-full max-w-sm bg-black border border-white p-6 rounded-xl shadow-lg"

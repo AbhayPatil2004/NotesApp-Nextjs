@@ -20,8 +20,8 @@ function ProfileIcon() {
                 className="
       bg-white rounded-full p-1
       w-[28px] h-[28px]     /* mobile size */
-      sm:w-[40px] sm:h-[40px] /* tablet and up */
-      md:w-[48px] md:h-[48px] /* bigger screens */
+      sm:w-[35px] sm:h-[35px] /* tablet and up */
+      md:w-[35px] md:h-[35px] /* bigger screens */
     "
             />
         </button>

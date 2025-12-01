@@ -1,53 +1,76 @@
-"use client"
+"use client";
 
-import React from 'react'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import LogoutButton from "@/components/Logout";
 import ProfileIcon from "@/components/ProfileIcon";
-
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function CurrentUser() {
+  const router = useRouter();
+  const [userName, setUsername] = useState("");
 
-    const router = useRouter()
-    const [userName, setUsername] = useState("")
+  // helper to read localStorage and set state
+  const readUserFromStorage = () => {
+    const stored = typeof window !== "undefined" && localStorage.getItem("user");
+    if (!stored) {
+      setUsername("");
+      return;
+    }
 
-    useEffect(() => {
+    try {
+      const userObj = JSON.parse(stored);
+      setUsername(userObj.userName || userObj.username || "");
+    } catch (err) {
+      console.warn("Failed to parse user from localStorage", err);
+      setUsername("");
+    }
+  };
 
-        const stored = localStorage.getItem("user");
+  useEffect(() => {
+    // initial read
+    readUserFromStorage();
 
-        if (!stored) {
-            // router.push("/auth/signup");
-            return;
-        }
+    // storage event fires for other tabs/windows when localStorage changes
+    const onStorage = (e) => {
+      if (e.key === "user") {
+        readUserFromStorage();
+      }
+    };
+    window.addEventListener("storage", onStorage);
 
-        const userObj = JSON.parse(stored);   // <--- IMPORTANT
+    // custom event for same-tab changes (we will dispatch this manually on login/logout)
+    const onUserChange = () => {
+      readUserFromStorage();
+    };
+    window.addEventListener("user-change", onUserChange);
 
-        setUsername(userObj.userName || userObj.username);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("user-change", onUserChange);
+    };
+  }, []);
 
-        // fetchUserDetails(stored);
-    }, []);
-    return (
-        <div>
-            {
-                userName !== "" ? (
-                    <div className="w-full flex justify-between items-center rounded-md shadow gap-5 md:text-sm">
-                        <h1 className="text-base sm:text-lg md:text-xl font-semibold text-white">
-                            <button className="cursor-pointer"
-                            onClick={ () => { router.push("/profile")}}>
-                                {userName}
-                            </button>
-                        </h1>
-                        <LogoutButton />
-                    </div>
-
-                ) : (
-                    <ProfileIcon />
-                )
-            }
+  return (
+    <div>
+      {userName ? (
+        <div className="w-full flex justify-between items-center rounded-md shadow gap-5 md:text-sm">
+          <h1 className="text-base sm:text-lg md:text-xl font-semibold text-white">
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/profile");
+              }}
+            >
+              {userName}
+            </button>
+          </h1>
+          <LogoutButton />
         </div>
-    )
+      ) : (
+        <ProfileIcon />
+      )}
+    </div>
+  );
 }
 
-export default CurrentUser
+export default CurrentUser;

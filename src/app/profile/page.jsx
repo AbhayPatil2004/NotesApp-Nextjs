@@ -38,7 +38,7 @@ export default function MyUploadsPage({ userNameProp }) {
 
   useEffect(() => {
     if (!userName) {
-      if (typeof window !== "undefined") window.location.href = "auth/login";
+      if (typeof window !== "undefined") window.location.href = "auth/signup";
       return;
     }
     fetchAll();
